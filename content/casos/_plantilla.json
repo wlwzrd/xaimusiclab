@@ -1,0 +1,57 @@
+{
+  "slug": "nombre-del-caso",
+  "titulo": "NOMBRE DEL DISCO",
+  "resumen": "Una frase que resume el caso.",
+  "publicado": "2026-11-01",
+  "consentimiento": "anonimo",
+  "cuenta": {
+    "descripcion": "Descripción general, sin datos personales",
+    "ciudad": "Ciudad, País",
+    "handle": null,
+    "url": null
+  },
+  "corpus": {
+    "posts": 0,
+    "desde": "2026-01",
+    "hasta": "2026-03",
+    "ritmo": "Cómo publica: frecuencia, horarios, ráfagas",
+    "idiomas": "Idioma o mezcla de idiomas"
+  },
+  "perfil": "Un párrafo sobre la voz del timeline.",
+  "sentimiento": {
+    "titular": "El sentimiento general en una frase",
+    "resumen": "Un párrafo con el tono dominante y sus matices.",
+    "tonos_principales": ["Tono 1", "Tono 2"],
+    "tonos": ["Tono 3", "Tono 4"]
+  },
+  "animo_por_mes": [
+    { "mes": "2026-01", "etiqueta": "Enero", "texto": "Qué pasó con el ánimo ese mes.", "color": "#e2a93b" }
+  ],
+  "temas": [
+    { "nombre": "Tema", "descripcion": "Una o dos frases." }
+  ],
+  "patrones": [
+    { "nombre": "Patrón", "descripcion": "Una o dos frases." }
+  ],
+  "musica": {
+    "titular": "El gusto musical en una frase",
+    "generos": ["Género"],
+    "artistas": ["Artista"],
+    "nota": "Cómo ese gusto definió el sonido del disco."
+  },
+  "playlist_youtube_id": null,
+  "herramientas": ["Suno", "Gemini"],
+  "canciones": [
+    {
+      "titulo": "Título",
+      "animo": "Ánimo",
+      "genero": "Género",
+      "bpm": 100,
+      "tonalidad": "Am",
+      "descripcion": "De qué trata la canción.",
+      "verso": "Un verso de la letra original",
+      "youtube_id": null,
+      "portada": null
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+dist/
+node_modules/
+.DS_Store
+# Archivos de datos de X que te compartan: nunca al repo
+datos/
+*.zip

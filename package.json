@@ -1,0 +1,15 @@
+{
+  "name": "x-account-to-music",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Archivo de casos: cuentas de X convertidas en discos con IA a partir de análisis de sentimiento.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check",
+    "dev": "node build.mjs && node serve.mjs"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "slug": "lowkey",
+  "titulo": "LOWKEY",
+  "resumen": "Una cuenta de X, cinco estados de ánimo y cinco canciones escritas y producidas con IA.",
+  "publicado": "2026-10-27",
+  "consentimiento": "anonimo",
+  "cuenta": {
+    "descripcion": "Creadora de contenido caleña",
+    "ciudad": "Cali, Colombia",
+    "handle": null,
+    "url": null
+  },
+  "corpus": {
+    "posts": 200,
+    "desde": "2026-07",
+    "hasta": "2026-10",
+    "ritmo": "Ráfagas: días de muchos posts seguidos de silencios",
+    "idiomas": "Español caleño con spanglish"
+  },
+  "perfil": "Una creadora de contenido caleña con una voz muy reconocible: frases cortas, humor seco, mucha seguridad en sí misma y una vida que cuenta a medias. Publica seguido y en ráfagas, casi siempre en español con inglés mezclado.",
+  "sentimiento": {
+    "titular": "Mayormente positivo, con dos picos fuertes",
+    "resumen": "El tono dominante es de autoafirmación: celebra lo que es y lo que tiene, y despacha lo que le molesta con sarcasmo. Debajo aparece una capa más reflexiva, de alguien que se pregunta quién se queda cerca.",
+    "tonos_principales": ["Confianza", "Humor sarcástico"],
+    "tonos": ["Gratitud", "Irritación juguetona", "Deseo", "Nostalgia", "Solidaridad", "Introspección"]
+  },
+  "animo_por_mes": [
+    { "mes": "2026-07", "etiqueta": "Julio", "texto": "Fiesta, gratitud y ganas de familia. Energía alta.", "color": "#e2a93b" },
+    { "mes": "2026-08", "etiqueta": "Agosto", "texto": "Una tragedia en Cali cambia todo: duelo, impotencia y luego solidaridad y orgullo.", "color": "#6a7ba0" },
+    { "mes": "2026-09", "etiqueta": "Septiembre", "texto": "Calma y comunidad. Proyectos nuevos, aburrimiento creativo, reflexión.", "color": "#9a89b5" },
+    { "mes": "2026-10", "etiqueta": "Octubre", "texto": "Confianza al máximo, mezclada con preguntas sobre quién la quiere de verdad.", "color": "#d13a55" }
+  ],
+  "temas": [
+    { "nombre": "Diva autosuficiente", "descripcion": "Se celebra sin pedir permiso. Lujo, brillo y la idea de ganar con cualquier carta." },
+    { "nombre": "Libertad y movimiento", "descripcion": "Cambia de ciudad cuando quiere, viaja sin anunciarlo y se aburre de quedarse quieta." },
+    { "nombre": "Privacidad como lujo", "descripcion": "Vive mucho y publica poco. Lo importante se queda fuera de las redes." },
+    { "nombre": "Calle, fiesta y amigas", "descripcion": "Salir, bailar hasta el amanecer y quedarse con la pista para ellas." },
+    { "nombre": "Cali como raíz", "descripcion": "Amor a la ciudad desde lejos y orgullo cuando su gente se levanta." },
+    { "nombre": "Contradicción íntima", "descripcion": "Sociable pero selectiva. Le choca la cultura influencer aunque forma parte de ella." }
+  ],
+  "patrones": [
+    { "nombre": "Frases tipo aforismo", "descripcion": "Una línea, una idea, casi siempre sin contexto. Muchas suenan a título de canción." },
+    { "nombre": "Letras citadas", "descripcion": "Publica versos de canciones urbanas como si fueran estados de ánimo." },
+    { "nombre": "Jerga local", "descripcion": "\"Pa\", \"nah\", \"mk\", \"bby\": registro caleño mezclado con inglés." },
+    { "nombre": "Conversación con el público", "descripcion": "Saludos y preguntas directas a sus seguidores, como \"¿cómo van?\" o \"¿me quieren o no?\"." },
+    { "nombre": "Comunidad", "descripcion": "Organiza iniciativas: un club de lectura, ayuda tras la tragedia y redes de apoyo." }
+  ],
+  "musica": {
+    "titular": "Urbano latino, de la calle a la pista",
+    "generos": ["Reggaetón", "Dembow", "Perreo", "Trap latino", "Corridos tumbados"],
+    "artistas": ["Bad Bunny", "Ryan Castro", "Yailin", "Lil Nay", "Peso Pluma", "Omar Courtz"],
+    "nota": "Ese gusto definió el sonido de las canciones, y la salsa caleña entró como homenaje a la ciudad."
+  },
+  "playlist_youtube_id": "PLEZVL9pb5Flw",
+  "herramientas": ["Suno", "Gemini"],
+  "canciones": [
+    {
+      "titulo": "Baja la nota",
+      "animo": "Confianza",
+      "genero": "Dembow",
+      "bpm": 100,
+      "tonalidad": "Am",
+      "descripcion": "Himno de diva: las malas vibras se quedan afuera y la vida privada es el lujo.",
+      "verso": "Yo gano con cualquier carta en la mano",
+      "youtube_id": null,
+      "portada": null
+    },
+    {
+      "titulo": "Amo a todos, quiero a pocos",
+      "animo": "Introspección",
+      "genero": "Trap melódico",
+      "bpm": 70,
+      "tonalidad": "F#m",
+      "descripcion": "Sociable con todos, abierta con pocos. La soledad de la vida en redes.",
+      "verso": "Te regalo mi risa, pero no mi silencio",
+      "youtube_id": null,
+      "portada": null
+    },
+    {
+      "titulo": "Calle",
+      "animo": "La noche",
+      "genero": "Perreo",
+      "bpm": 95,
+      "tonalidad": "Dm",
+      "descripcion": "Noche de amigas, coquetería y la pista para ellas hasta el amanecer.",
+      "verso": "La pista pa' nosotras y el que no baila, que se quede",
+      "youtube_id": null,
+      "portada": null
+    },
+    {
+      "titulo": "Volando bajito",
+      "animo": "Libertad",
+      "genero": "Afrobeats",
+      "bpm": 95,
+      "tonalidad": "Gm",
+      "descripcion": "Irse sin avisar, cambiar de ciudad y disfrutar sin publicarlo.",
+      "verso": "Lo bueno se vive, no se publica",
+      "youtube_id": null,
+      "portada": null
+    },
+    {
+      "titulo": "Te honro, Cali",
+      "animo": "Raíz",
+      "genero": "Salsa caleña",
+      "bpm": 180,
+      "tonalidad": null,
+      "descripcion": "Homenaje a la ciudad tras la tragedia. Empieza como balada y termina en salsa.",
+      "verso": "Cali no se cae, Cali se levanta",
+      "youtube_id": null,
+      "portada": null
+    }
+  ]
+}
