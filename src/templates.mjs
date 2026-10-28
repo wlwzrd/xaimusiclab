@@ -9,7 +9,8 @@ export const esc = (v) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
-const PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
+const X_ICON = '<svg class="xicon" viewBox="0 0 24 24" aria-label="X" role="img"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+const PLAY ='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
 const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
 const mesCorto = (ym) => {
   const [y, m] = String(ym).split("-");
@@ -36,6 +37,10 @@ export function layout({ site, base, titulo, descripcion, actual, contenido }) {
   const canal = site.youtube_canal_url
     ? ` · <a href="${esc(site.youtube_canal_url)}" target="_blank" rel="noopener">YouTube</a>`
     : "";
+  const handle = String(site.x_handle || "").replace(/^@/, "");
+  const autoria = handle
+    ? `Un experimento de <a class="xlink" href="https://x.com/${esc(handle)}" target="_blank" rel="noopener">${X_ICON}<span>@${esc(handle)}</span></a>`
+    : "Un experimento de música con IA";
   return `<!doctype html>
 <html lang="${esc(site.idioma || "es")}">
 <head>
@@ -59,7 +64,7 @@ export function layout({ site, base, titulo, descripcion, actual, contenido }) {
 </nav>
 ${contenido}
 <footer class="site">
-  <span>Un experimento de ${esc(site.autor)} · ${esc(site.autor_rol)}${canal}</span>
+  <span>${autoria}${canal}</span>
   <span>Música, letras y portadas generadas con IA</span>
 </footer>
 </body>

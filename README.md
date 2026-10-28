@@ -34,7 +34,7 @@ Los archivos de datos que te compartan las personas no van al repo. La carpeta `
 
 ## Configuración
 
-`site.config.json` tiene el título, el autor y tres campos para completar:
+`site.config.json` tiene el título, la cuenta de X del proyecto (`x_handle`, que aparece en el pie de página) y tres campos para completar:
 
 - `formulario_url`: el enlace del formulario de Tally o Google Forms para la página Participa.
 - `correo_retiro`: el correo para pedir que se retire un caso.
