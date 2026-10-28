@@ -116,7 +116,7 @@ function bloqueCancion(s, i, base) {
     ? `<img class="cover" src="${esc(base + s.portada)}" alt="Portada de ${esc(s.titulo)}" loading="lazy" width="120" height="120">`
     : "";
   const video = s.youtube_id
-    ? `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(s.youtube_id)}" title="${esc(s.titulo)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+    ? `<div class="video${s.vertical ? " vertical" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${esc(s.youtube_id)}" title="${esc(s.titulo)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
     : "";
   return `<li class="track">
     <span class="no">${String(i + 1).padStart(2, "0")}</span>

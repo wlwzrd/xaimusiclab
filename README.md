@@ -17,7 +17,7 @@ npm run check   # solo valida los casos
 1. Copia `content/casos/_plantilla.json` a `content/casos/<slug>.json`.
 2. Llena los campos. El `slug` es la URL del caso: `/casos/<slug>/`.
 3. Pon las portadas en `public/portadas/` y referencia la ruta en cada canción, por ejemplo `"portada": "portadas/lowkey-01.jpg"`.
-4. Pega el ID de cada video en `youtube_id` (lo que va después de `watch?v=`) y el de la lista en `playlist_youtube_id` (lo que va después de `list=`).
+4. Pega el ID de cada video en `youtube_id` (lo que va después de `watch?v=`, `youtu.be/` o `shorts/`) y el de la lista en `playlist_youtube_id` (lo que va después de `list=`). Si el video es un Short, agrega `"vertical": true` a esa canción.
 5. Corre `npm run check`. Si algo falta, te dice qué y en qué archivo.
 6. Haz commit y push. El sitio se vuelve a publicar solo.
 
