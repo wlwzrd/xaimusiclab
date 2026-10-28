@@ -18,8 +18,9 @@ npm run check   # solo valida los casos
 2. Llena los campos. El `slug` es la URL del caso: `/casos/<slug>/`.
 3. Pon las portadas en `public/portadas/` y referencia la ruta en cada canción, por ejemplo `"portada": "portadas/lowkey-01.jpg"`.
 4. Pega el ID de cada video en `youtube_id` (lo que va después de `watch?v=`, `youtu.be/` o `shorts/`) y el de la lista en `playlist_youtube_id` (lo que va después de `list=`). Si el video es un Short, agrega `"vertical": true` a esa canción.
-5. Corre `npm run check`. Si algo falta, te dice qué y en qué archivo.
-6. Haz commit y push. El sitio se vuelve a publicar solo.
+5. Opcional: agrega `actividad` (posts por día, `{"2026-07-08": 1, ...}`) y `eventos` (`[{"fecha": "...", "texto": "..."}]`) para que el caso muestre la gráfica de ritmo de publicación. La suma de `actividad` debe ser igual a `corpus.posts`.
+6. Corre `npm run check`. Si algo falta, te dice qué y en qué archivo.
+7. Haz commit y push. El sitio se vuelve a publicar solo.
 
 Los archivos que empiezan por `_` no se publican.
 
