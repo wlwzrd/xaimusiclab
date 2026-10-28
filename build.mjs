@@ -62,7 +62,7 @@ await cp(join(raiz, "public"), dist, { recursive: true, filter: (src) => !src.en
 await cp(join(raiz, "src", "styles.css"), join(dist, "styles.css"));
 
 await escribir("index.html", paginaInicio({ site, base, casos }));
-await escribir("metodo/index.html", paginaMetodo({ site, base }));
+await escribir("metodo/index.html", paginaMetodo({ site, base, casos }));
 await escribir("participa/index.html", paginaParticipa({ site, base }));
 await escribir("404.html", pagina404({ site, base }));
 for (const caso of casos) {

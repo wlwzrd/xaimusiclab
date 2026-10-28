@@ -1,21 +1,13 @@
 // Plantillas HTML del sitio. Cada función devuelve un string.
 // Todo texto que viene de los JSON pasa por esc() antes de entrar al HTML.
 
-export const esc = (v) =>
-  String(v ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+import { esc, mesCorto } from "./util.mjs";
+import { graficaActividad, graficaTempo, MAPA_SONIDO } from "./charts.mjs";
+
+export { esc };
 
 const X_ICON = '<svg class="xicon" viewBox="0 0 24 24" aria-label="X" role="img"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const PLAY ='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
-const MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
-const mesCorto = (ym) => {
-  const [y, m] = String(ym).split("-");
-  return m ? `${MESES[Number(m) - 1]} ${y}` : ym;
-};
 const periodo = (c) => `${mesCorto(c.corpus.desde)} – ${mesCorto(c.corpus.hasta)}`;
 const playlistUrl = (id) => `https://www.youtube.com/playlist?list=${encodeURIComponent(id)}`;
 
@@ -152,7 +144,7 @@ export function paginaCaso({ site, base, caso: c }) {
     ${tituloDisco(c.titulo)}
     <p class="lede">${esc(c.resumen)}</p>
     <div class="meta">
-      <span>~${c.corpus.posts} posts públicos</span><span>${esc(periodo(c))}</span><span>${c.canciones.length} canciones</span>
+      <span>${c.corpus.posts} posts públicos</span><span>${esc(periodo(c))}</span><span>${c.canciones.length} canciones</span>
     </div>
     ${listaBtn("Escuchar la lista en YouTube")}
     ${cuenta}
@@ -163,12 +155,23 @@ export function paginaCaso({ site, base, caso: c }) {
     <h2>Quién habla en el timeline</h2>
     <p>${esc(c.perfil)}</p>
     <div class="facts">
-      <div class="fact"><strong>~${c.corpus.posts}</strong><span>publicaciones analizadas</span></div>
+      <div class="fact"><strong>${c.corpus.posts}</strong><span>publicaciones analizadas</span></div>
       <div class="fact"><strong>${esc(periodo(c))}</strong><span>periodo del análisis</span></div>
       ${c.corpus.ritmo ? `<div class="fact"><strong>Ritmo</strong><span>${esc(c.corpus.ritmo)}</span></div>` : ""}
       ${c.corpus.idiomas ? `<div class="fact"><strong>Idioma</strong><span>${esc(c.corpus.idiomas)}</span></div>` : ""}
     </div>
   </section>
+
+  ${
+    c.actividad
+      ? `<section>
+    <p class="label">Ritmo de publicación</p>
+    <h2>${esc(c.actividad_titular || "Cuándo publica")}</h2>
+    ${c.actividad_resumen ? `<p>${esc(c.actividad_resumen)}</p>` : ""}
+    ${graficaActividad(c)}
+  </section>`
+      : ""
+  }
 
   <section>
     <p class="label">Sentimiento general</p>
@@ -244,31 +247,135 @@ const REGLAS = `<div class="rules">
       <div class="rule"><h3>IA declarada</h3><p>Letras, música y portadas están marcadas como generadas con IA.</p></div>
     </div>`;
 
-export function paginaMetodo({ site, base }) {
+const TAXONOMIA = ["Confianza", "Alegría", "Gratitud", "Deseo", "Nostalgia", "Introspección", "Irritación", "Tristeza", "Solidaridad"];
+
+function pasosMetodo(ejemplo, base) {
+  const enlace = ejemplo ? `<a href="${base}casos/${esc(ejemplo.slug)}/">${esc(ejemplo.titulo)}</a>` : "";
+  return [
+    {
+      id: "recoleccion",
+      nombre: "Recolección",
+      intro: "Se arma la muestra de publicaciones que representa a la cuenta durante un periodo concreto.",
+      entra: "El archivo de datos que la persona descarga de X, o sus posts públicos.",
+      mide: "Todavía nada. Se define la ventana de tiempo, normalmente de 3 a 4 meses, para tener suficientes posts sin mezclar etapas muy distintas de la vida de la cuenta.",
+      sale: `Una muestra con la fecha de cada post.${ejemplo?.actividad ? ` En ${enlace} fueron ${ejemplo.corpus.posts} posts.` : ""}`,
+    },
+    {
+      id: "limpieza",
+      nombre: "Limpieza",
+      intro: "Antes de analizar, se quita todo lo que identifica a personas o lugares y se separa lo que no es la voz de la cuenta.",
+      entra: "La muestra completa.",
+      mide: "Se eliminan enlaces, menciones a otras cuentas, nombres y lugares precisos. Los posts que son versos de canciones se apartan: dicen más del gusto musical que del ánimo.",
+      sale: "Un corpus limpio y una lista de canciones y artistas citados.",
+    },
+    {
+      id: "sentimiento",
+      nombre: "Sentimiento",
+      intro: "Cada post se lee con una lista fija de emociones, la misma para todos los casos, para que los álbumes se puedan comparar.",
+      entra: "El corpus limpio.",
+      mide: "La emoción principal de cada post, su intensidad (baja, media o alta) y cómo cambia de un mes a otro. El sarcasmo y el humor se marcan antes de clasificar, porque dicen lo contrario de lo que parece.",
+      sale: "Los tonos dominantes, los picos emocionales y la franja de ánimo por mes.",
+      extra: `<ul class="tones" aria-label="Emociones de la taxonomía">${TAXONOMIA.map((t) => `<li class="tone">${t}</li>`).join("")}</ul>`,
+    },
+    {
+      id: "patrones",
+      nombre: "Temas y patrones",
+      intro: "Además de cómo se siente, importa de qué habla, cuándo y con quién.",
+      entra: "El corpus limpio y las fechas de cada post.",
+      mide: "Los temas que se repiten, el ritmo de publicación (días de ráfaga, silencios, picos), el registro (jerga, idiomas, spanglish) y si le habla a su público o a sí misma.",
+      sale: `Entre 4 y 6 ejes temáticos y la gráfica de ritmo de publicación.${ejemplo?.actividad ? ` Mira la de ${enlace}.` : ""}`,
+    },
+    {
+      id: "sonido",
+      nombre: "Del ánimo al sonido",
+      intro: "Cada emoción se traduce en parámetros musicales con una regla fija. Los géneros finales se ajustan a lo que la cuenta escucha.",
+      entra: "Los ejes temáticos, los tonos dominantes y los gustos musicales.",
+      mide: "Para cada canción: emoción, tempo, energía de la base, tipo de voz y género.",
+      sale: "Una ficha de sonido por canción, que luego se convierte en el prompt de estilo.",
+      extra: "SONIDO",
+    },
+    {
+      id: "letras",
+      nombre: "Escritura",
+      intro: "La IA escribe una letra original por cada eje temático elegido.",
+      entra: "La ficha de sonido y el eje temático de cada canción.",
+      mide: "La letra toma la actitud, las imágenes y el vocabulario general del timeline. Nunca toma frases literales, nombres, lugares, relaciones, salud ni temas delicados. Si un verso suena parecido a un post real, se reescribe.",
+      sale: "La letra con su estructura marcada: intro, versos, coro, puente y outro.",
+    },
+    {
+      id: "produccion",
+      nombre: "Producción",
+      intro: "La letra y la ficha de sonido se convierten en una canción, una portada y un video.",
+      entra: "La letra y la ficha de sonido.",
+      mide: "El prompt de estilo y las exclusiones para Suno salen de la ficha. Las portadas se generan con Gemini con una figura anónima, sin rostros reconocibles ni logos.",
+      sale: "Las canciones, las portadas y los videos en YouTube, marcados como contenido generado con IA.",
+    },
+  ];
+}
+
+export function paginaMetodo({ site, base, casos = [] }) {
   const retiro = site.correo_retiro
     ? `escribe a <b>${esc(site.correo_retiro)}</b>`
     : "escríbeme por cualquiera de los canales del proyecto";
+  const ejemplo = casos.find((c) => c.canciones.some((s) => Number.isFinite(s.bpm))) || null;
+  const pasos = pasosMetodo(ejemplo, base);
+
+  const tablaSonido = `<div class="table-scroll"><table>
+      <thead><tr><th scope="col">Emoción</th><th scope="col">Tempo</th><th scope="col">Base</th><th scope="col">Voz</th><th scope="col">Géneros</th></tr></thead>
+      <tbody>${MAPA_SONIDO.map(
+        (r) => `<tr><th scope="row">${esc(r.emocion)}</th><td class="num">${r.min}–${r.max} BPM</td><td>${esc(r.base)}</td><td>${esc(r.voz)}</td><td>${esc(r.generos)}</td></tr>`
+      ).join("")}</tbody>
+    </table></div>
+    ${ejemplo ? graficaTempo(ejemplo) : ""}`;
+
+  const bloquePaso = (p, i) => `<article class="method-step" id="${p.id}">
+      <header>
+        <span class="step-no">${String(i + 1).padStart(2, "0")}</span>
+        <h3>${esc(p.nombre)}</h3>
+      </header>
+      <p>${esc(p.intro)}</p>
+      <dl class="io">
+        <div><dt>Entra</dt><dd>${esc(p.entra)}</dd></div>
+        <div><dt>Qué se hace</dt><dd>${esc(p.mide)}</dd></div>
+        <div><dt>Sale</dt><dd>${p.sale}</dd></div>
+      </dl>
+      ${p.extra === "SONIDO" ? tablaSonido : p.extra || ""}
+    </article>`;
+
   const contenido = `<main class="wrap">
   <header class="hero">
     <p class="label">Método</p>
     <h1 class="long">Del timeline a la canción</h1>
-    <p class="lede">Cada caso sigue el mismo proceso, para que los álbumes se puedan comparar entre sí.</p>
-  </header>
-  <section>
-    <h2>El proceso</h2>
-    <ol class="steps">
-      <li><div><b>Recolectar.</b> <span>Meses de publicaciones, respuestas y reposts públicos, o el archivo de datos que la persona descarga de X.</span></div></li>
-      <li><div><b>Encontrar patrones.</b> <span>Temas, jerga, ritmo de publicación y música citada.</span></div></li>
-      <li><div><b>Analizar el sentimiento.</b> <span>Mapa del ánimo en el tiempo y sus picos emocionales.</span></div></li>
-      <li><div><b>Escribir.</b> <span>La IA convierte cada tema en una letra original, sin copiar posts.</span></div></li>
-      <li><div><b>Producir.</b> <span>Música y voz con IA en los géneros que la cuenta escucha, y portadas generadas con IA.</span></div></li>
+    <p class="lede">Siete pasos que se repiten en cada caso, para que los álbumes se puedan comparar entre sí.</p>
+    <ol class="flow" aria-label="Pasos del método">
+      ${pasos.map((p) => `<li><a href="#${p.id}">${esc(p.nombre)}</a></li>`).join("")}
     </ol>
+    <p class="note"><b>Versión actual del método: v1.</b> El análisis es una lectura asistida por IA con categorías fijas. La siguiente versión clasificará cada post de forma automática, para que la franja de ánimo salga directamente de los datos.</p>
+  </header>
+
+  <section class="method">
+    ${pasos.map(bloquePaso).join("")}
   </section>
+
   <section>
-    <h2>Las reglas</h2>
+    <p class="label">Límites</p>
+    <h2>Lo que el análisis no puede saber</h2>
+    <ul class="traits">
+      <li><b>Es una muestra</b><span>Unos meses de posts públicos no son la vida entera de nadie. El álbum retrata un timeline, no a una persona.</span></li>
+      <li><b>El sarcasmo engaña</b><span>Una queja puede ser un chiste y un elogio puede ser ironía. Por eso se marca el humor antes de clasificar.</span></li>
+      <li><b>Lo que no se publica</b><span>Los silencios también dicen algo, pero el análisis solo puede medir que existen, no qué significan.</span></li>
+      <li><b>Lectura asistida, no medición</b><span>En la v1 el ánimo por mes es una interpretación con criterios fijos, no un puntaje calculado.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="label">Reglas</p>
+    <h2>Lo que no entra en las canciones</h2>
     ${REGLAS}
   </section>
+
   <section>
+    <p class="label">Retiro</p>
     <h2>Retirar un caso</h2>
     <p>Si un caso habla de tu cuenta y quieres que lo baje, ${retiro}. Lo retiro de la web y de YouTube sin preguntas.</p>
   </section>

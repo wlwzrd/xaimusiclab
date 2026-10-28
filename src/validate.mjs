@@ -37,6 +37,16 @@ export function validarCaso(caso, archivo) {
     req(isStr(c.animo) && isStr(c.genero), `canciones[${i}] necesita "animo" y "genero"`);
     if (c.youtube_id != null) req(/^[\w-]{6,20}$/.test(c.youtube_id), `canciones[${i}].youtube_id no parece un ID de YouTube`);
   });
+  if (caso.actividad != null) {
+    const entradas = Object.entries(caso.actividad);
+    req(entradas.length > 0, "\"actividad\" está vacío");
+    entradas.forEach(([d, n]) => {
+      req(/^\d{4}-\d{2}-\d{2}$/.test(d) && Number.isInteger(n) && n >= 0, `actividad["${d}"] debe ser una fecha AAAA-MM-DD con un número entero`);
+    });
+    const total = entradas.reduce((a, [, n]) => a + n, 0);
+    req(total === caso.corpus?.posts, `la suma de "actividad" (${total}) no coincide con corpus.posts (${caso.corpus?.posts})`);
+    (caso.eventos || []).forEach((ev, i) => req(ev.fecha in caso.actividad, `eventos[${i}].fecha no tiene datos en "actividad"`));
+  }
   if (caso.playlist_youtube_id != null) {
     req(/^[\w-]{10,64}$/.test(caso.playlist_youtube_id), "playlist_youtube_id no parece un ID de lista de YouTube");
   }
