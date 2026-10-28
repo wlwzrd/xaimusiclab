@@ -2,7 +2,7 @@
   "name": "x-account-to-music",
   "version": "0.1.0",
   "private": true,
-  "description": "Archivo de casos: cuentas de X convertidas en discos con IA a partir de análisis de sentimiento.",
+  "description": "Archivo de casos: cuentas de X convertidas en álbumes con IA a partir de análisis de sentimiento.",
   "type": "module",
   "engines": {
     "node": ">=18"

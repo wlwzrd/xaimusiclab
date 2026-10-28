@@ -37,7 +37,7 @@
     "titular": "El gusto musical en una frase",
     "generos": ["Género"],
     "artistas": ["Artista"],
-    "nota": "Cómo ese gusto definió el sonido del disco."
+    "nota": "Cómo ese gusto definió el sonido del álbum."
   },
   "playlist_youtube_id": null,
   "herramientas": ["Suno", "Gemini"],

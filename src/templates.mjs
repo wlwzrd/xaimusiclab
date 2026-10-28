@@ -18,7 +18,7 @@ const mesCorto = (ym) => {
 const periodo = (c) => `${mesCorto(c.corpus.desde)} – ${mesCorto(c.corpus.hasta)}`;
 const playlistUrl = (id) => `https://www.youtube.com/playlist?list=${encodeURIComponent(id)}`;
 
-// Título del disco con la segunda mitad en color de acento (LOW + KEY).
+// Título del álbum con la segunda mitad en color de acento (LOW + KEY).
 const tituloDisco = (t) => {
   if (t.length > 14 || /\s/.test(t)) return `<h1 class="long">${esc(t)}</h1>`;
   const mitad = Math.ceil(t.length / 2);
@@ -95,15 +95,15 @@ export function paginaInicio({ site, base, casos }) {
   <header class="hero">
     <p class="label">Investigación · Música con IA</p>
     <h1 class="long">¿Cómo suena un timeline?</h1>
-    <p class="lede">Analizo los posts públicos de una cuenta de X, mapeo su estado de ánimo y lo convierto en un disco con letras originales y música generada con IA.</p>
+    <p class="lede">Analizo los posts públicos de una cuenta de X, mapeo su estado de ánimo y lo convierto en un álbum con letras originales y música generada con IA.</p>
     <div class="ctas">
-      <a class="cta" href="${base}participa/">Convierte tu timeline en un disco</a>
+      <a class="cta" href="${base}participa/">Convierte tu timeline en un álbum</a>
       <a class="cta ghost" href="${base}metodo/">Cómo funciona</a>
     </div>
   </header>
   <section>
     <p class="label">Casos</p>
-    <h2>${casos.length === 1 ? "1 disco" : `${casos.length} discos`} hasta ahora</h2>
+    <h2>${casos.length === 1 ? "1 álbum" : `${casos.length} álbumes`} hasta ahora</h2>
     ${tarjetas}
   </section>
 </main>`;
@@ -217,7 +217,7 @@ export function paginaCaso({ site, base, caso: c }) {
 
   <section>
     <p class="label">Resultado</p>
-    <h2>El disco</h2>
+    <h2>El álbum</h2>
     <ol class="tracks">
       ${c.canciones.map((s, i) => bloqueCancion(s, i, base)).join("")}
     </ol>
@@ -247,7 +247,7 @@ export function paginaMetodo({ site, base }) {
   <header class="hero">
     <p class="label">Método</p>
     <h1 class="long">Del timeline a la canción</h1>
-    <p class="lede">Cada caso sigue el mismo proceso, para que los discos se puedan comparar entre sí.</p>
+    <p class="lede">Cada caso sigue el mismo proceso, para que los álbumes se puedan comparar entre sí.</p>
   </header>
   <section>
     <h2>El proceso</h2>
@@ -268,7 +268,7 @@ export function paginaMetodo({ site, base }) {
     <p>Si un caso habla de tu cuenta y quieres que lo baje, ${retiro}. Lo retiro de la web y de YouTube sin preguntas.</p>
   </section>
 </main>`;
-  return layout({ site, base, titulo: `Método · ${site.titulo}`, descripcion: "Cómo se convierte un timeline de X en un disco.", actual: "metodo", contenido });
+  return layout({ site, base, titulo: `Método · ${site.titulo}`, descripcion: "Cómo se convierte un timeline de X en un álbum.", actual: "metodo", contenido });
 }
 
 export function paginaParticipa({ site, base }) {
@@ -278,8 +278,8 @@ export function paginaParticipa({ site, base }) {
   const contenido = `<main class="wrap">
   <header class="hero">
     <p class="label">Participa</p>
-    <h1 class="long">Convierte tu timeline en un disco</h1>
-    <p class="lede">Propón tu cuenta de X. Si la elijo, analizo tus posts públicos y te devuelvo un disco hecho a partir de tu estado de ánimo.</p>
+    <h1 class="long">Convierte tu timeline en un álbum</h1>
+    <p class="lede">Propón tu cuenta de X. Si la elijo, analizo tus posts públicos y te devuelvo un álbum hecho a partir de tu estado de ánimo.</p>
     ${boton}
   </header>
   <section>
@@ -289,7 +289,7 @@ export function paginaParticipa({ site, base }) {
       <li><div><b>Confirmas que es tu cuenta.</b> <span>Me escribes por DM desde ella o publicas un código que te envío.</span></div></li>
       <li><div><b>Compartes tus datos.</b> <span>Descargas tu archivo desde X (Configuración → Tu cuenta → Descargar un archivo de tus datos) y me pasas solo los posts.</span></div></li>
       <li><div><b>Revisas el borrador.</b> <span>Ves el análisis y las letras antes de publicar, y puedes vetar cualquier tema.</span></div></li>
-      <li><div><b>Sale tu disco.</b> <span>Publico el caso aquí y los videos en YouTube. Eliges si aparece tu usuario o si queda anónimo.</span></div></li>
+      <li><div><b>Sale tu álbum.</b> <span>Publico el caso aquí y los videos en YouTube. Eliges si aparece tu usuario o si queda anónimo.</span></div></li>
     </ol>
   </section>
   <section>
@@ -297,14 +297,14 @@ export function paginaParticipa({ site, base }) {
     ${REGLAS}
   </section>
 </main>`;
-  return layout({ site, base, titulo: `Participa · ${site.titulo}`, descripcion: "Propón tu cuenta de X para convertirla en un disco.", actual: "participa", contenido });
+  return layout({ site, base, titulo: `Participa · ${site.titulo}`, descripcion: "Propón tu cuenta de X para convertirla en un álbum.", actual: "participa", contenido });
 }
 
 export function pagina404({ site, base }) {
   const contenido = `<main class="wrap">
   <header class="hero">
     <p class="label">404</p>
-    <h1 class="long">Esta página no está en el disco</h1>
+    <h1 class="long">Esta página no está en el álbum</h1>
     <a class="cta" href="${base}">Volver a los casos</a>
   </header>
 </main>`;

@@ -1,6 +1,6 @@
 # X Account to Music
 
-Archivo de casos: cuentas de X convertidas en discos con IA a partir de análisis de sentimiento.
+Archivo de casos: cuentas de X convertidas en álbumes con IA a partir de análisis de sentimiento.
 
 Sitio estático sin dependencias. Solo necesitas Node 18 o más reciente.
 
