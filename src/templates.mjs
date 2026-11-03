@@ -2,12 +2,16 @@
 // Todo texto que viene de los JSON pasa por esc() antes de entrar al HTML.
 
 import { esc, mesCorto } from "./util.mjs";
-import { graficaActividad, graficaTempo, MAPA_SONIDO } from "./charts.mjs";
+import { graficaActividad, graficaTempo, graficaEmociones, MAPA_SONIDO } from "./charts.mjs";
 
 export { esc };
 
 const X_ICON = '<svg class="xicon" viewBox="0 0 24 24" aria-label="X" role="img"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const PLAY ='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
+const conteoCanciones = (c) => {
+  const pub = c.canciones.filter((s) => s.estado !== "en-produccion").length;
+  return pub < c.canciones.length ? `${pub} de ${c.canciones.length} canciones` : `${c.canciones.length} canciones`;
+};
 const periodo = (c) => `${mesCorto(c.corpus.desde)} – ${mesCorto(c.corpus.hasta)}`;
 const playlistUrl = (id) => `https://www.youtube.com/playlist?list=${encodeURIComponent(id)}`;
 
@@ -80,7 +84,7 @@ export function paginaInicio({ site, base, casos }) {
           (c) => `<li><a class="case" href="${base}casos/${esc(c.slug)}/">
       <div class="art" ${arteTarjeta(c, base)}><strong>${esc(c.titulo)}</strong></div>
       <div class="info">
-        <span class="label">${esc(periodo(c))} · ${c.canciones.length} canciones</span>
+        <span class="label">${esc(periodo(c))} · ${conteoCanciones(c)}</span>
         <p>${esc(c.resumen)}</p>
       </div>
     </a></li>`
@@ -118,7 +122,7 @@ function bloqueCancion(s, i, base) {
   return `<li class="track">
     <span class="no">${String(i + 1).padStart(2, "0")}</span>
     <div class="body">
-      <span class="mood">${esc(s.animo)}</span>
+      <span class="mood">${esc(s.animo)}${s.estado === "en-produccion" ? ' <span class="status">En producción</span>' : ""}</span>
       <h3>${esc(s.titulo)}</h3>
       <p class="desc">${esc(s.descripcion)}</p>
       ${s.verso ? `<blockquote>"${esc(s.verso)}"</blockquote>` : ""}
@@ -144,7 +148,7 @@ export function paginaCaso({ site, base, caso: c }) {
     ${tituloDisco(c.titulo)}
     <p class="lede">${esc(c.resumen)}</p>
     <div class="meta">
-      <span>${c.corpus.posts} posts públicos</span><span>${esc(periodo(c))}</span><span>${c.canciones.length} canciones</span>
+      <span>${c.corpus.posts} posts públicos</span><span>${esc(periodo(c))}</span><span>${conteoCanciones(c)}</span>
     </div>
     ${listaBtn("Escuchar la lista en YouTube")}
     ${cuenta}
@@ -181,6 +185,7 @@ export function paginaCaso({ site, base, caso: c }) {
       ${(c.sentimiento.tonos_principales || []).map((t) => `<li class="tone main">${esc(t)}</li>`).join("")}
       ${(c.sentimiento.tonos || []).map((t) => `<li class="tone">${esc(t)}</li>`).join("")}
     </ul>
+    ${c.emociones ? graficaEmociones(c) : ""}
     <ul class="strip" aria-label="Estado de ánimo por mes">
       ${c.animo_por_mes
         .map((m) => `<li class="month"><div class="bar" style="--c: ${esc(m.color)}"></div><h3>${esc(m.etiqueta)}</h3><p>${esc(m.texto)}</p></li>`)
@@ -219,6 +224,7 @@ export function paginaCaso({ site, base, caso: c }) {
         ? `<p class="artists">Artistas que cita o menciona: ${c.musica.artistas.map((a) => `<b>${esc(a)}</b>`).join(", ")}. ${esc(c.musica.nota || "")}</p>`
         : ""
     }
+    ${c.musica.fuente ? `<p class="note">${esc(c.musica.fuente)}</p>` : ""}
   </section>`
       : ""
   }
@@ -234,7 +240,7 @@ export function paginaCaso({ site, base, caso: c }) {
 
   <section>
     <p class="label">Créditos</p>
-    <p>Análisis de sentimiento asistido por IA. Letras originales escritas con IA, sin copiar publicaciones. Producción con ${esc((c.herramientas || []).join(" y "))}. Publicado el ${esc(c.publicado)}.</p>
+    <p>Análisis de sentimiento asistido por IA${c.metodo ? ` (método ${esc(c.metodo)})` : ""}. Letras originales escritas con IA, sin copiar publicaciones. Producción con ${esc((c.herramientas || []).join(" y "))}. Publicado el ${esc(c.publicado)}.</p>
   </section>
 </main>`;
   return layout({ site, base, titulo: `${c.titulo} · ${site.titulo}`, descripcion: c.resumen, actual: "casos", contenido });
@@ -247,7 +253,7 @@ const REGLAS = `<div class="rules">
       <div class="rule"><h3>IA declarada</h3><p>Letras, música y portadas están marcadas como generadas con IA.</p></div>
     </div>`;
 
-const TAXONOMIA = ["Confianza", "Alegría", "Gratitud", "Deseo", "Nostalgia", "Introspección", "Irritación", "Tristeza", "Solidaridad"];
+const TAXONOMIA = ["Confianza", "Alegría", "Gratitud", "Deseo", "Nostalgia", "Introspección", "Irritación", "Tristeza", "Miedo", "Solidaridad"];
 
 function pasosMetodo(ejemplo, base) {
   const enlace = ejemplo ? `<a href="${base}casos/${esc(ejemplo.slug)}/">${esc(ejemplo.titulo)}</a>` : "";
@@ -271,10 +277,10 @@ function pasosMetodo(ejemplo, base) {
     {
       id: "sentimiento",
       nombre: "Sentimiento",
-      intro: "Cada post se lee con una lista fija de emociones, la misma para todos los casos, para que los álbumes se puedan comparar.",
-      entra: "El corpus limpio.",
-      mide: "La emoción principal de cada post, su intensidad (baja, media o alta) y cómo cambia de un mes a otro. El sarcasmo y el humor se marcan antes de clasificar, porque dicen lo contrario de lo que parece.",
-      sale: "Los tonos dominantes, los picos emocionales y la franja de ánimo por mes.",
+      intro: "Cada post se lee con una lista fija de emociones, la misma para todos los casos, para que los álbumes se puedan comparar. Desde la v1.1 incluye Miedo.",
+      entra: "El corpus limpio y, como señal secundaria, los reposts del mismo periodo.",
+      mide: "Cada post recibe una etiqueta: su emoción principal, su intensidad (1 a 3) y si está escrito en tono de humor. El humor se marca porque cambia el sentido: un post de deseo o de tristeza dicho riéndose no suena igual que uno dicho en serio. Los reposts no son la voz de la cuenta, así que solo refuerzan o matizan lo que dicen los posts.",
+      sale: "La distribución de emociones, los picos emocionales, el balance de cada mes y la franja de ánimo.",
       extra: `<ul class="tones" aria-label="Emociones de la taxonomía">${TAXONOMIA.map((t) => `<li class="tone">${t}</li>`).join("")}</ul>`,
     },
     {
@@ -288,9 +294,9 @@ function pasosMetodo(ejemplo, base) {
     {
       id: "sonido",
       nombre: "Del ánimo al sonido",
-      intro: "Cada emoción se traduce en parámetros musicales con una regla fija. Los géneros finales se ajustan a lo que la cuenta escucha.",
-      entra: "Los ejes temáticos, los tonos dominantes y los gustos musicales.",
-      mide: "Para cada canción: emoción, tempo, energía de la base, tipo de voz y género.",
+      intro: "La emoción define la energía, la dinámica y la voz de cada canción. El género, y con él el tempo, sale de lo que la cuenta escucha.",
+      entra: "Los ejes temáticos, los tonos dominantes y los gustos musicales. Si la cuenta casi no habla de música en el periodo, se busca en todo su historial.",
+      mide: "Para cada canción: emoción, energía, dinámica, voz, género y tempo. Las letras se cantan en primera persona, desde el punto de vista de la cuenta.",
       sale: "Una ficha de sonido por canción, que luego se convierte en el prompt de estilo.",
       extra: "SONIDO",
     },
@@ -321,9 +327,9 @@ export function paginaMetodo({ site, base, casos = [] }) {
   const pasos = pasosMetodo(ejemplo, base);
 
   const tablaSonido = `<div class="table-scroll"><table>
-      <thead><tr><th scope="col">Emoción</th><th scope="col">Tempo</th><th scope="col">Base</th><th scope="col">Voz</th><th scope="col">Géneros</th></tr></thead>
+      <thead><tr><th scope="col">Emoción</th><th scope="col">Energía</th><th scope="col">Dinámica</th><th scope="col">Voz</th><th scope="col">Géneros usados</th></tr></thead>
       <tbody>${MAPA_SONIDO.map(
-        (r) => `<tr><th scope="row">${esc(r.emocion)}</th><td class="num">${r.min}–${r.max} BPM</td><td>${esc(r.base)}</td><td>${esc(r.voz)}</td><td>${esc(r.generos)}</td></tr>`
+        (r) => `<tr><th scope="row">${esc(r.emocion)}</th><td>${esc(r.energia)}</td><td>${esc(r.dinamica)}</td><td>${esc(r.voz)}</td><td>${esc(r.ejemplos)}</td></tr>`
       ).join("")}</tbody>
     </table></div>
     ${ejemplo ? graficaTempo(ejemplo) : ""}`;
@@ -350,7 +356,7 @@ export function paginaMetodo({ site, base, casos = [] }) {
     <ol class="flow" aria-label="Pasos del método">
       ${pasos.map((p) => `<li><a href="#${p.id}">${esc(p.nombre)}</a></li>`).join("")}
     </ol>
-    <p class="note"><b>Versión actual del método: v1.</b> El análisis es una lectura asistida por IA con categorías fijas. La siguiente versión clasificará cada post de forma automática, para que la franja de ánimo salga directamente de los datos.</p>
+    <p class="note"><b>Versión actual del método: v1.1.</b> Cada post recibe una etiqueta de emoción, intensidad y humor, en una lectura asistida por IA con categorías fijas. Cambios frente a la v1: se agregó Miedo a la taxonomía, los reposts entran como señal secundaria y el tempo ya no depende de la emoción sino del género. La siguiente versión hará la clasificación de forma automática.</p>
   </header>
 
   <section class="method">
@@ -364,7 +370,7 @@ export function paginaMetodo({ site, base, casos = [] }) {
       <li><b>Es una muestra</b><span>Unos meses de posts públicos no son la vida entera de nadie. El álbum retrata un timeline, no a una persona.</span></li>
       <li><b>El sarcasmo engaña</b><span>Una queja puede ser un chiste y un elogio puede ser ironía. Por eso se marca el humor antes de clasificar.</span></li>
       <li><b>Lo que no se publica</b><span>Los silencios también dicen algo, pero el análisis solo puede medir que existen, no qué significan.</span></li>
-      <li><b>Lectura asistida, no medición</b><span>En la v1 el ánimo por mes es una interpretación con criterios fijos, no un puntaje calculado.</span></li>
+      <li><b>Lectura asistida, no medición</b><span>Cada post tiene una etiqueta, pero la pone una lectura asistida por IA con criterios fijos, no un modelo automático. Otra lectura podría etiquetar distinto algunos posts.</span></li>
     </ul>
   </section>
 

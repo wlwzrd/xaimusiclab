@@ -1,0 +1,322 @@
+{
+  "slug": "de-rota-a-reina",
+  "titulo": "DE ROTA A REINA",
+  "resumen": "Una cuenta de X, cuatro meses y seis canciones que cuentan cómo se pasa de sentirse rota a ponerse la corona.",
+  "publicado": "2026-11-03",
+  "consentimiento": "anonimo",
+  "metodo": "v1.1",
+  "cuenta": {
+    "descripcion": "Cuenta personal caleña",
+    "ciudad": "Cali, Colombia",
+    "handle": null,
+    "url": null
+  },
+  "corpus": {
+    "posts": 194,
+    "reposts": 224,
+    "desde": "2026-07",
+    "hasta": "2026-10",
+    "ritmo": "Parejo: publica casi todos los días, con picos de 7 u 8 posts",
+    "idiomas": "Español caleño, con diminutivos"
+  },
+  "perfil": "Una voz caleña que alterna dos registros: el chiste y el mantra. Habla mucho de amor y de hombres, casi siempre riéndose, y entre chiste y chiste deja frases de autoafirmación. Publica de forma pareja, casi todos los días, y le habla directamente a su público.",
+  "actividad_titular": "Publica casi todos los días",
+  "actividad_resumen": "A diferencia de LOWKEY, aquí no hay grandes silencios ni ráfagas enormes. Los picos coinciden con partidos del Mundial en julio, con la semana del terremoto en agosto y con un día de réplicas en septiembre.",
+  "actividad": {
+    "2026-07-02": 1,
+    "2026-07-03": 7,
+    "2026-07-04": 2,
+    "2026-07-05": 2,
+    "2026-07-06": 1,
+    "2026-07-07": 2,
+    "2026-07-08": 2,
+    "2026-07-09": 2,
+    "2026-07-10": 2,
+    "2026-07-11": 1,
+    "2026-07-12": 1,
+    "2026-07-13": 2,
+    "2026-07-15": 2,
+    "2026-07-16": 1,
+    "2026-07-18": 1,
+    "2026-07-21": 2,
+    "2026-07-22": 1,
+    "2026-07-24": 3,
+    "2026-07-25": 7,
+    "2026-07-26": 4,
+    "2026-07-27": 4,
+    "2026-07-28": 3,
+    "2026-07-29": 6,
+    "2026-07-30": 4,
+    "2026-07-31": 4,
+    "2026-08-01": 1,
+    "2026-08-05": 1,
+    "2026-08-06": 3,
+    "2026-08-07": 3,
+    "2026-08-08": 6,
+    "2026-08-09": 1,
+    "2026-08-11": 2,
+    "2026-08-12": 1,
+    "2026-08-13": 1,
+    "2026-08-15": 3,
+    "2026-08-16": 1,
+    "2026-08-17": 1,
+    "2026-08-18": 2,
+    "2026-08-19": 2,
+    "2026-08-21": 2,
+    "2026-08-22": 4,
+    "2026-08-24": 1,
+    "2026-08-25": 1,
+    "2026-08-26": 1,
+    "2026-08-27": 5,
+    "2026-08-30": 1,
+    "2026-09-01": 2,
+    "2026-09-02": 2,
+    "2026-09-03": 4,
+    "2026-09-04": 1,
+    "2026-09-05": 6,
+    "2026-09-08": 1,
+    "2026-09-09": 3,
+    "2026-09-11": 1,
+    "2026-09-13": 2,
+    "2026-09-14": 8,
+    "2026-09-15": 1,
+    "2026-09-16": 2,
+    "2026-09-17": 3,
+    "2026-09-18": 1,
+    "2026-09-19": 2,
+    "2026-09-20": 1,
+    "2026-09-21": 2,
+    "2026-09-22": 1,
+    "2026-09-23": 1,
+    "2026-09-25": 4,
+    "2026-09-26": 2,
+    "2026-09-27": 1,
+    "2026-10-02": 1,
+    "2026-10-03": 1,
+    "2026-10-05": 1,
+    "2026-10-06": 2,
+    "2026-10-11": 1,
+    "2026-10-12": 1,
+    "2026-10-15": 1,
+    "2026-10-20": 1,
+    "2026-10-21": 2,
+    "2026-10-23": 2,
+    "2026-10-25": 1,
+    "2026-10-27": 2,
+    "2026-10-28": 2,
+    "2026-10-29": 3,
+    "2026-10-30": 4,
+    "2026-10-31": 8
+  },
+  "eventos": [
+    {
+      "fecha": "2026-08-11",
+      "texto": "Semana del terremoto"
+    },
+    {
+      "fecha": "2026-09-14",
+      "texto": "Día de réplicas: 8 posts"
+    }
+  ],
+  "sentimiento": {
+    "titular": "Deseo y alegría con humor, sobre heridas que van sanando",
+    "resumen": "El deseo, la alegría y la confianza suman casi dos tercios de los posts, y el 28% está escrito en tono de chiste, incluso cuando el tema duele. La tristeza fuerte se concentra en julio y la confianza fuerte crece hacia octubre.",
+    "tonos_principales": [
+      "Deseo",
+      "Alegría",
+      "Confianza"
+    ],
+    "tonos": [
+      "Humor",
+      "Irritación",
+      "Tristeza",
+      "Miedo",
+      "Introspección"
+    ]
+  },
+  "emociones": {
+    "Deseo": 44,
+    "Alegría": 39,
+    "Confianza": 36,
+    "Irritación": 28,
+    "Tristeza": 17,
+    "Introspección": 15,
+    "Miedo": 8,
+    "Gratitud": 3,
+    "Nostalgia": 2,
+    "Solidaridad": 2
+  },
+  "animo_por_mes": [
+    {
+      "mes": "2026-07",
+      "etiqueta": "Julio",
+      "texto": "Rota, pero funcionando. La mayoría de los picos de tristeza, mezclados con la euforia del Mundial.",
+      "color": "#6a7ba0"
+    },
+    {
+      "mes": "2026-08",
+      "etiqueta": "Agosto",
+      "texto": "El terremoto: miedo y solidaridad, y a la vez cortar con lo que hacía daño. El único mes en negativo.",
+      "color": "#3d5a4a"
+    },
+    {
+      "mes": "2026-09",
+      "etiqueta": "Septiembre",
+      "texto": "El humor como defensa: el mes más chistoso, entre réplicas, deseo y risa.",
+      "color": "#c79a3b"
+    },
+    {
+      "mes": "2026-10",
+      "etiqueta": "Octubre",
+      "texto": "La reina: el mes más positivo. Apuesta por ella misma y hace las cosas en silencio.",
+      "color": "#2f8a5a"
+    }
+  ],
+  "temas": [
+    {
+      "nombre": "Soltera con humor",
+      "descripcion": "Buscar pareja en chiste: requisitos imposibles, propuestas absurdas y preguntas al público."
+    },
+    {
+      "nombre": "El amor que merezco",
+      "descripcion": "Sus estándares: alguien que se desviva, que conteste rápido y que no juegue al desinterés."
+    },
+    {
+      "nombre": "Rota pero funcionando",
+      "descripcion": "Sonreír por fuera y sostener todo por dentro. El cansancio de ser siempre la fuerte."
+    },
+    {
+      "nombre": "Cortar lo que no suma",
+      "descripcion": "Cerrar el capítulo de la gente falsa y de los vínculos que solo pedían aguante."
+    },
+    {
+      "nombre": "Domingos de arrunche",
+      "descripcion": "El amor que imagina: lluvia, películas, dormir abrazada y el domingo como lugar sagrado."
+    },
+    {
+      "nombre": "La tierra no se queda quieta",
+      "descripcion": "El terremoto y las réplicas: miedo, insomnio y una ciudad que se sostiene."
+    }
+  ],
+  "patrones": [
+    {
+      "nombre": "Dos voces",
+      "descripcion": "Alterna el chiste (28% de sus posts) con la frase tipo mantra o autoafirmación."
+    },
+    {
+      "nombre": "Diminutivos",
+      "descripcion": "Lo grande se dice en chiquito: besito, cervecita, masajito, lluviesita."
+    },
+    {
+      "nombre": "Le habla al público",
+      "descripcion": "Preguntas abiertas a sus seguidores, como pedir planes o consejos."
+    },
+    {
+      "nombre": "Fe y universo",
+      "descripcion": "Dios, el universo y la vida aparecen como algo que devuelve lo bueno."
+    },
+    {
+      "nombre": "Registro caleño",
+      "descripcion": "Jerga local, groserías como énfasis y mayúsculas para gritar."
+    }
+  ],
+  "musica": {
+    "titular": "De la salsa al reggaetón viejo, con despecho en el medio",
+    "generos": [
+      "Salsa",
+      "Reggaetón viejo",
+      "Despecho",
+      "Bachata",
+      "Vallenato",
+      "Regional mexicano"
+    ],
+    "artistas": [
+      "Juan Luis Guerra",
+      "Arcángel",
+      "Daddy Yankee",
+      "Grupo Firme",
+      "Kapo"
+    ],
+    "nota": "Cada género del álbum sale de esta lista.",
+    "fuente": "En el periodo analizado casi no habla de música, así que el gusto musical se tomó de 49 posts sobre música en todo su historial, de 2021 a 2026."
+  },
+  "playlist_youtube_id": null,
+  "herramientas": [
+    "Suno",
+    "Gemini"
+  ],
+  "canciones": [
+    {
+      "titulo": "Por fuera bien",
+      "animo": "Tristeza",
+      "genero": "Balada de despecho",
+      "bpm": 72,
+      "tonalidad": "Em",
+      "descripcion": "El cansancio de ser siempre la fuerte. La canción más lenta del álbum.",
+      "verso": "Que yo aprendí a llorar sin hacer ruido",
+      "youtube_id": null,
+      "portada": null,
+      "estado": "publicada"
+    },
+    {
+      "titulo": "Tierra quieta",
+      "animo": "Miedo",
+      "genero": "Vallenato",
+      "bpm": 98,
+      "tonalidad": "Am",
+      "descripcion": "Las noches después del terremoto y la gente que se sostuvo entre sí.",
+      "verso": "Que me encuentres abrazada a mi gente",
+      "youtube_id": null,
+      "portada": null,
+      "estado": "publicada"
+    },
+    {
+      "titulo": "Colorín colorado",
+      "animo": "Irritación",
+      "genero": "Regional mexicano",
+      "bpm": 104,
+      "tonalidad": "Dm",
+      "descripcion": "Cerrar el capítulo de la gente que solo pedía aguante.",
+      "verso": null,
+      "youtube_id": null,
+      "portada": null,
+      "estado": "en-produccion"
+    },
+    {
+      "titulo": "Soltera con requisitos",
+      "animo": "Deseo",
+      "genero": "Reggaetón viejo",
+      "bpm": 94,
+      "tonalidad": "Gm",
+      "descripcion": "Buscar pareja en chiste, con preguntas al público.",
+      "verso": null,
+      "youtube_id": null,
+      "portada": null,
+      "estado": "en-produccion"
+    },
+    {
+      "titulo": "Domingo sagrado",
+      "animo": "Deseo",
+      "genero": "Bachata",
+      "bpm": 126,
+      "tonalidad": "E",
+      "descripcion": "El domingo que imagina: lluvia, películas y dormir abrazada.",
+      "verso": null,
+      "youtube_id": null,
+      "portada": null,
+      "estado": "en-produccion"
+    },
+    {
+      "titulo": "Me la juego",
+      "animo": "Confianza",
+      "genero": "Salsa caleña",
+      "bpm": 190,
+      "tonalidad": "C",
+      "descripcion": "El cierre: la reina que pone sus reglas. La canción más rápida del álbum.",
+      "verso": null,
+      "youtube_id": null,
+      "portada": null,
+      "estado": "en-produccion"
+    }
+  ]
+}

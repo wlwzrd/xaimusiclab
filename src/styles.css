@@ -219,3 +219,7 @@ footer.site .xlink:hover span { text-decoration: underline; }
 .xicon { width: 14px; height: 14px; fill: currentColor; flex: none; }
 
 @media (prefers-reduced-motion: reduce) { .cta, .case { transition: none; } }
+
+/* Estado de canción y trazo del tempo */
+.status { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-size: 11px; letter-spacing: .06em; vertical-align: 1px; }
+.chart .path { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 2 4; }
