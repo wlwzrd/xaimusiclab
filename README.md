@@ -24,6 +24,10 @@ npm run check   # solo valida los casos
 
 Los archivos que empiezan por `_` no se publican.
 
+## Documentación
+
+- [Proceso del video musical](docs/proceso-video-musical.md): cómo se produjo el video de "Amo a todos, quiero a pocos" y qué aprendimos.
+
 ## Consentimiento
 
 Cada caso lleva `"consentimiento"`:

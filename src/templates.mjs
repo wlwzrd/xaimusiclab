@@ -246,6 +246,38 @@ export function paginaCaso({ site, base, caso: c }) {
   return layout({ site, base, titulo: `${c.titulo} · ${site.titulo}`, descripcion: c.resumen, actual: "casos", contenido });
 }
 
+// Cómo se hace el video musical de una canción. Primer caso: "Amo a todos, quiero a pocos" (LOWKEY).
+const SECCION_VIDEO = `<section id="video-musical">
+    <p class="label">Extra · Video musical</p>
+    <h2>De la canción al video</h2>
+    <p>Algunas canciones tienen además un video musical hecho con IA. El primero es "Amo a todos, quiero a pocos", del álbum LOWKEY. Una toma de IA dura unos segundos, así que el video se arma con muchas tomas cortas sobre la canción original.</p>
+    <div class="facts">
+      <div class="fact"><strong>29</strong><span>tomas generadas, de 5 a 13 segundos</span></div>
+      <div class="fact"><strong>3:13</strong><span>la canción completa, sin cortes</span></div>
+      <div class="fact"><strong>22</strong><span>fotos para entrenar al personaje</span></div>
+      <div class="fact"><strong>3 cortes</strong><span>YouTube en horizontal y dos TikToks en vertical</span></div>
+    </div>
+    <ol class="steps">
+      <li><div><b>Mapa de tiempos.</b> <span>Se marca dónde empieza cada sección de la canción: intro, versos, coros, puente y outro.</span></div></li>
+      <li><div><b>Guion de tomas.</b> <span>Cada sección se divide en tomas, cada una con su duración, lo que se ve, un prompt de imagen y un prompt de movimiento. Todo vive en una hoja de cálculo que también sirve para seguir el avance.</span></div></li>
+      <li><div><b>Un personaje ficticio.</b> <span>La protagonista se inventa desde cero y no se parece a la dueña de la cuenta. Se genera un retrato, se sacan 22 fotos de ella en distintos ángulos y luces, y con eso se entrena un personaje que mantiene la misma cara en todas las tomas.</span></div></li>
+      <li><div><b>Reglas de continuidad.</b> <span>El vestuario cambia según el momento de la historia, los personajes secundarios tienen ropa fija, los letreros usan un nombre inventado y nada lleva texto ni logos de marcas reales.</span></div></li>
+      <li><div><b>Primero la imagen.</b> <span>Cada toma empieza como una imagen fija que se revisa y se corrige antes de animarla. Corregir una imagen es mucho más barato que regenerar un video.</span></div></li>
+      <li><div><b>Después el movimiento.</b> <span>La imagen aprobada se convierte en video con un prompt que describe la acción y el movimiento de cámara.</span></div></li>
+      <li><div><b>Montaje.</b> <span>Las tomas se ordenan sobre la canción original, con el audio de los clips en silencio y una sola gradación de color para todo el video.</span></div></li>
+    </ol>
+    <h3 class="subhead">Lo que aprendimos</h3>
+    <ul class="traits">
+      <li><b>La cámara da la vida</b><span>Las tomas de objetos con cámara fija salían congeladas. Con un movimiento lento de cámara y muchos verbos de acción en el prompt, se animan.</span></li>
+      <li><b>Cada modelo tiene su trabajo</b><span>Soul 2.0 para la protagonista sola. Nano Banana Pro para escenas con gente, para letreros y para editar imágenes. Kling para el video, porque Seedance 2.5 dejaba las tomas casi quietas.</span></li>
+      <li><b>Caras clonadas</b><span>Con el personaje activo en una escena con gente, todos los invitados salían con su cara. Si ella está de espaldas, mejor describirla con palabras y no usar su referencia.</span></li>
+      <li><b>Letras inventadas</b><span>La IA llena los letreros con palabras sin sentido. Se resuelve con un nombre corto y explícito, o editando la imagen.</span></li>
+      <li><b>Objetos que no entiende</b><span>Un teléfono con pantalla por ambos lados o una chaqueta que se transforma al pasar de mano. Se resuelve cortando antes del error, dando el cuadro final o simplificando la acción.</span></li>
+      <li><b>A veces la IA propone algo mejor</b><span>La toma que abre el video no era la planeada, pero contaba mejor la historia y se quedó.</span></li>
+    </ul>
+    <p class="note">Herramientas: Higgsfield (Soul 2.0 con Soul ID, Nano Banana Pro y Kling en Cinema Studio) para imagen y video, y Suno para la canción.</p>
+  </section>`;
+
 const REGLAS = `<div class="rules">
       <div class="rule"><h3>Solo posts públicos</h3><p>Nada de mensajes privados ni cuentas cerradas.</p></div>
       <div class="rule"><h3>Sin datos personales</h3><p>Ni pareja, ni salud, ni ubicación, ni viajes concretos.</p></div>
@@ -355,6 +387,7 @@ export function paginaMetodo({ site, base, casos = [] }) {
     <p class="lede">Siete pasos que se repiten en cada caso, para que los álbumes se puedan comparar entre sí.</p>
     <ol class="flow" aria-label="Pasos del método">
       ${pasos.map((p) => `<li><a href="#${p.id}">${esc(p.nombre)}</a></li>`).join("")}
+      <li><a href="#video-musical">Extra: video musical</a></li>
     </ol>
     <p class="note"><b>Versión actual del método: v1.1.</b> Cada post recibe una etiqueta de emoción, intensidad y humor, en una lectura asistida por IA con categorías fijas. Cambios frente a la v1: se agregó Miedo a la taxonomía, los reposts entran como señal secundaria y el tempo ya no depende de la emoción sino del género. La siguiente versión hará la clasificación de forma automática.</p>
   </header>
@@ -362,6 +395,8 @@ export function paginaMetodo({ site, base, casos = [] }) {
   <section class="method">
     ${pasos.map(bloquePaso).join("")}
   </section>
+
+  ${SECCION_VIDEO}
 
   <section>
     <p class="label">Límites</p>
