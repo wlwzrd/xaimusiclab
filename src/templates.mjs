@@ -116,9 +116,17 @@ function bloqueCancion(s, i, base) {
   const portada = s.portada
     ? `<img class="cover" src="${esc(base + s.portada)}" alt="Portada de ${esc(s.titulo)}" loading="lazy" width="120" height="120">`
     : "";
-  const video = s.youtube_id
-    ? `<div class="video${s.vertical ? " vertical" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${esc(s.youtube_id)}" title="${esc(s.titulo)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
-    : "";
+  const embed = (id, titulo, vertical) =>
+    `<div class="video${vertical ? " vertical" : ""}"><iframe src="https://www.youtube-nocookie.com/embed/${esc(id)}" title="${esc(titulo)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+  // Con video musical, ese va primero; la versión de la canción queda como enlace.
+  const video = s.video_musical_id
+    ? `<p class="mv-label">Video musical</p>${embed(s.video_musical_id, `${s.titulo} · Video musical`, false)}
+      <p class="mv-links">${
+        s.youtube_id ? `<a href="https://youtu.be/${esc(s.youtube_id)}" target="_blank" rel="noopener">Escuchar la versión original</a> · ` : ""
+      }<a href="${base}metodo/#video-musical">Cómo se hizo el video</a></p>`
+    : s.youtube_id
+      ? embed(s.youtube_id, s.titulo, s.vertical)
+      : "";
   return `<li class="track">
     <span class="no">${String(i + 1).padStart(2, "0")}</span>
     <div class="body">
@@ -250,7 +258,7 @@ export function paginaCaso({ site, base, caso: c }) {
 const SECCION_VIDEO = `<section id="video-musical">
     <p class="label">Extra · Video musical</p>
     <h2>De la canción al video</h2>
-    <p>Algunas canciones tienen además un video musical hecho con IA. El primero es "Amo a todos, quiero a pocos", del álbum LOWKEY. Una toma de IA dura unos segundos, así que el video se arma con muchas tomas cortas sobre la canción original.</p>
+    <p>Algunas canciones tienen además un video musical hecho con IA. El primero es <a href="https://youtu.be/6oC685zOKGw" target="_blank" rel="noopener">"Amo a todos, quiero a pocos"</a>, del álbum LOWKEY. Una toma de IA dura unos segundos, así que el video se arma con muchas tomas cortas sobre la canción original.</p>
     <div class="facts">
       <div class="fact"><strong>29</strong><span>tomas generadas, de 5 a 13 segundos</span></div>
       <div class="fact"><strong>3:13</strong><span>la canción completa, sin cortes</span></div>

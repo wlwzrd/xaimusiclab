@@ -226,3 +226,8 @@ footer.site .xlink:hover span { text-decoration: underline; }
 
 /* Subtítulo dentro de una sección */
 section > h3.subhead { font-size: 18px; font-weight: 600; margin-top: 12px; }
+
+/* Video musical dentro de una canción */
+.track .mv-label { margin-top: 10px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.track .mv-label + .video { margin-top: 6px; }
+.track .mv-links { font-size: 14px; color: var(--muted); }

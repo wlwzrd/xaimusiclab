@@ -36,6 +36,7 @@ export function validarCaso(caso, archivo) {
     req(isStr(c.titulo), `canciones[${i}] necesita "titulo"`);
     req(isStr(c.animo) && isStr(c.genero), `canciones[${i}] necesita "animo" y "genero"`);
     req(c.estado == null || ["publicada", "en-produccion"].includes(c.estado), `canciones[${i}].estado debe ser "publicada" o "en-produccion"`);
+    if (c.video_musical_id != null) req(/^[\w-]{6,20}$/.test(c.video_musical_id), `canciones[${i}].video_musical_id no parece un ID de YouTube`);
     if (c.youtube_id != null) req(/^[\w-]{6,20}$/.test(c.youtube_id), `canciones[${i}].youtube_id no parece un ID de YouTube`);
   });
   if (caso.actividad != null) {
